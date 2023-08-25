@@ -3,7 +3,8 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import "dotenv/config";
-
+import { sequelize } from './database/config.js';
+import usersRoutes from './routes/users.routes.js';
 
 const app = express();
 
@@ -16,6 +17,17 @@ app.use(
   })
 );
 app.use(morgan("dev"));
+
+
+
+// Se ejecuta una instancia de conexión a la base de datos
+sequelize.authenticate()
+  .then(() => { 
+    console.log('Conexión a base de datos exitosa');
+ })
+  .catch((error) => console.log('Error al conectar a base de datos', error));
+
+app.use("/", usersRoutes);
 
 app.listen(process.env.APP_PORT, () => {
   console.log(`Servidor en ${process.env.APP_URL}:${process.env.APP_PORT}`);
