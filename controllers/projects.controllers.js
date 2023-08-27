@@ -3,6 +3,7 @@ import Project from "../models/project.model.js";
 import Response from "../helpers/response.handler.js";
 import ErrorResponse from "../helpers/error_response.handler.js";
 import { BadRequestError, NotFoundError } from "../helpers/userActionErrors.js"
+import Task from "../models/task.model.js";
 
 const index = async (req, res) => {
 
@@ -19,7 +20,12 @@ const show = async (req, res) => {
   const projectId = req.params.id;
 
   try {
-    const project = await Project.findByPk(projectId);
+    const project = await Project.findByPk(projectId,{
+      include: {
+        model: Task,
+        attributes: ['task', 'status']
+      }
+    });
 
     if (!project) {
       throw new NotFoundError("No existe el proyecto que querés ver.")

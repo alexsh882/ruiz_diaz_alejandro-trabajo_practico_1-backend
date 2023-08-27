@@ -5,7 +5,8 @@ import morgan from "morgan";
 import "dotenv/config";
 import { sequelize } from './database/config.js';
 import usersRoutes from './routes/users.routes.js';
-import projectRoutes from './routes/projects.routes.js';
+import projectsRoutes from './routes/projects.routes.js';
+import tasksRoutes from './routes/tasks.routes.js';
 
 const app = express();
 
@@ -29,7 +30,8 @@ sequelize.authenticate()
   .catch((error) => console.log('Error al conectar a base de datos', error));
 
 app.use("/", usersRoutes);
-app.use("/", projectRoutes);
+app.use("/", projectsRoutes);
+app.use("/", tasksRoutes);
 
 app.use(function (req, res, next) {
   
