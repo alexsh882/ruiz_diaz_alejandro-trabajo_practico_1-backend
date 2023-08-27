@@ -4,9 +4,13 @@ import User from './user.model.js';
 
 
 const Project = sequelize.define('Project', {
-  name: DataTypes.STRING,
-  description: DataTypes.TEXT,  
-  dateInit: DataTypes.DATE,  
+  name: { type: DataTypes.STRING(50) },
+  description: DataTypes.TEXT,
+  dateInit: {
+    type: DataTypes.DATE, 
+    defaultValue: DataTypes.NOW,
+    allowNull: false
+  },
   dateFinish: {
     type: DataTypes.DATE,
     allowNull: true
@@ -14,7 +18,7 @@ const Project = sequelize.define('Project', {
   userId: {
     type: DataTypes.INTEGER,
     allowNull: false
-  }  
+  }
 }, {
   sequelize,
   paranoid: true,

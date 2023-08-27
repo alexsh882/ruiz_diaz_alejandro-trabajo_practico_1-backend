@@ -2,7 +2,7 @@ import { DataTypes, sequelize } from '../database/config.js';
 
 
 const Task = sequelize.define('Task', {
-  task: DataTypes.STRING,
+  task: { type: DataTypes.STRING(100) },
   status: {
     type: DataTypes.BOOLEAN,
     defaultValue: false
