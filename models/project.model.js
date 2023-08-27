@@ -1,6 +1,5 @@
 import { DataTypes, sequelize } from '../database/config.js';
 import Task from './task.model.js';
-import User from './user.model.js';
 
 
 const Project = sequelize.define('Project', {
@@ -23,7 +22,7 @@ const Project = sequelize.define('Project', {
   sequelize,
   paranoid: true,
   modelName: 'Project',
-  tableName: 'projects',
+  tableName: 'projects',  
   underscored: true
 });
 

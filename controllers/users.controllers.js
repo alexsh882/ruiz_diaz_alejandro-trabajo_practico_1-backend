@@ -4,6 +4,7 @@ import User from "../models/user.model.js";
 import Response from "../helpers/response.handler.js";
 import ErrorResponse from "../helpers/error_response.handler.js";
 import { BadRequestError, NotFoundError } from "../helpers/userActionErrors.js"
+import Project from '../models/project.model.js';
 
 const index = async (req, res) => {
 
@@ -22,7 +23,12 @@ const show = async (req, res) => {
   const userId = req.params.id;
 
   try {
-    const user = await User.findByPk(userId);
+    const user = await User.findByPk(userId,{
+      include:{
+        model: Project,
+        attributes:['name'],
+      }
+    });
 
     if (!user) {
       throw new NotFoundError("No existe el usuario con el id " + userId)
@@ -68,6 +74,8 @@ const store = async (req, res) => {
       .json(new ErrorResponse(error.message, error.statusCode));
   }
 }
+
+
 const update = async (req, res) => {
   const userId = req.params.id;
 
@@ -84,7 +92,7 @@ const update = async (req, res) => {
       throw new NotFoundError('No existe el usuario que querés actualizar.')
     }
 
-    user.update({
+    await user.update({
       name,
       lastName,
       username,

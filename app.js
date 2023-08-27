@@ -5,6 +5,7 @@ import morgan from "morgan";
 import "dotenv/config";
 import { sequelize } from './database/config.js';
 import usersRoutes from './routes/users.routes.js';
+import projectRoutes from './routes/projects.routes.js';
 
 const app = express();
 
@@ -28,6 +29,15 @@ sequelize.authenticate()
   .catch((error) => console.log('Error al conectar a base de datos', error));
 
 app.use("/", usersRoutes);
+app.use("/", projectRoutes);
+
+app.use(function (req, res, next) {
+  
+  res.status(404).json({
+    message: "El recurso al que queres acceder, no existe.",
+    status: 404
+  });
+});
 
 app.listen(process.env.APP_PORT, () => {
   console.log(`Servidor en ${process.env.APP_URL}:${process.env.APP_PORT}`);

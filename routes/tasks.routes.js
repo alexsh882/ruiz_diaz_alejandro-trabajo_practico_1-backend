@@ -11,7 +11,7 @@ router.get("/api/tasks/:id/show", show);
 //Ruta para actualizar un usuario
 router.get("/api/tasks/:id/update", update);
 //Ruta para crear un usuario
-router.post("/api/tasks", store);
+router.post("/api/tasks" , store);
 //Ruta para eliminar un usuario
 router.delete("/api/tasks/:id/destroy", destroy);
 
