@@ -1,9 +1,9 @@
 import { checkSchema } from "express-validator";
 
-import User from "../../models/user.model.js";
+import User from "../user.model.js";
 
 
-export const userFormValidation = checkSchema({
+export const userCreateValidation = checkSchema({
     name: {
         notEmpty: {
             errorMessage: 'El campo nombre es obligatorio'
