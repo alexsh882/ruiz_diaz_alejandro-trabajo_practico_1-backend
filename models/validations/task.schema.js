@@ -2,7 +2,7 @@ import { checkSchema } from "express-validator";
 
 import Project from "../project.model.js";
 
-export const taskCreateValidation = checkSchema({
+export const taskValidation = checkSchema({
     task: {
         notEmpty: {
             errorMessage: 'El campo tarea es obligatorio'

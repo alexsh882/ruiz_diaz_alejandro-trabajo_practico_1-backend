@@ -3,7 +3,7 @@ import { checkSchema } from "express-validator";
 import User from "../user.model.js";
 
 
-export const userCreateValidation = checkSchema({
+export const userValidation = checkSchema({
     name: {
         notEmpty: {
             errorMessage: 'El campo nombre es obligatorio'
@@ -31,17 +31,21 @@ export const userCreateValidation = checkSchema({
             errorMessage: 'El campo username admite un mínimo de 2 y un máximo de 50 caracteres.'
         },
         custom: {
-            options: async (value) => {
-                return User.findOne({ where: { username: value } }).then((user) => {
-                    if (user) {
+            options: async (value, { req }) => {
+                const userId = req.params.id;
+                
+                return await User.findOne({ where: { username: value } }).then((user) => {
+                    if (user.id != userId) {
                         throw new Error('El usuario ya existe en la base de datos del sistema.');
                     }
                 })
+                
             }
         }
     },
-    password: {
+    password: {        
         notEmpty: {
+            if: (value, { req }) => !req.params.id,
             errorMessage: "El campo contraseña es obligatorio"
         },
         isLength: {

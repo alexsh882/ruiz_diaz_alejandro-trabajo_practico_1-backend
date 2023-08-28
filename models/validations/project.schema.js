@@ -3,7 +3,7 @@ import { checkSchema } from "express-validator";
 import User from "../user.model.js";
 
 
-export const projectCreateValidation = checkSchema({
+export const projectValidation = checkSchema({
     name: {
         notEmpty: {
             errorMessage: 'El campo nombre es obligatorio'
@@ -26,7 +26,9 @@ export const projectCreateValidation = checkSchema({
             errorMessage: "El valor de este campo debe ser una fecha con hora."
         }
     },
-    dateFinish: {},
+    dateFinish: {
+        optional: true
+    },
     userId: {
         notEmpty: {
             errorMessage: 'El campo user_id es obligatorio'
@@ -41,5 +43,4 @@ export const projectCreateValidation = checkSchema({
             }
         }
     }
-
 });
