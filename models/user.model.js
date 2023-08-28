@@ -24,15 +24,10 @@ const User = sequelize.define('User', {
 });
 
 console.log('User');
+
+
+
 User.sync()
-
-User.hasMany(Project)
-
-Project.belongsTo(User, {
-  foreignKey: {
-    name: 'userId'
-  }
-})
 
 export default User;
 

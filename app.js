@@ -7,6 +7,7 @@ import { sequelize } from './database/config.js';
 import usersRoutes from './routes/users.routes.js';
 import projectsRoutes from './routes/projects.routes.js';
 import tasksRoutes from './routes/tasks.routes.js';
+import associations from './models/associatons.js';
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use(morgan("dev"));
 sequelize.authenticate()
   .then(() => { 
     console.log('Conexión a base de datos exitosa');
+    associations();
  })
   .catch((error) => console.log('Error al conectar a base de datos', error));
 

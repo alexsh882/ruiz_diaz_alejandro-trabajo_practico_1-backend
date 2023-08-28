@@ -27,14 +27,9 @@ const Project = sequelize.define('Project', {
 });
 
 console.log('Project');
+
 Project.sync()
 
-Project.hasMany(Task)
-Task.belongsTo(Project, {
-  foreignKey: {
-    name: 'projectId'
-  }
-})
 
 export default Project;
 
