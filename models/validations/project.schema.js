@@ -27,7 +27,10 @@ export const projectValidation = checkSchema({
         }
     },
     dateFinish: {
-        optional: true
+        optional: true,
+        isISO8601:{
+            errorMessage: "El valor de este campo debe ser una fecha con hora."
+        }
     },
     userId: {
         notEmpty: {
