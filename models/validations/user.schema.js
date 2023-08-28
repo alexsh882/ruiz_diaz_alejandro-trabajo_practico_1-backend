@@ -34,11 +34,11 @@ export const userValidation = checkSchema({
     },
     custom: {
       options: async (value, { req }) => {
-        const userId = req.params.id;
-
+        const {id} = req.params;
         return await User.findOne({ where: { username: value } }).then(
           (user) => {
-            if (user.id != userId) {
+            console.log(user)
+            if (user?.id != id) {
               throw new Error(
                 "El usuario ya existe en la base de datos del sistema."
               );
